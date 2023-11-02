@@ -1,16 +1,20 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import { TimeDraggable } from "./types";
+import { MapDraggable, MapDraggableChildren } from "./types";
+import { Resizable } from "re-resizable";
 
 export function TimeDraggable({
   id,
   x,
   y,
-  height,
+  w,
+  h,
   bg,
   children,
-}: TimeDraggable) {
+}: MapDraggableChildren) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: id,
   });
@@ -20,16 +24,35 @@ export function TimeDraggable({
     transform: CSS.Translate.toString(transform),
   };
   const backGroundColor = bg ? bg : "bg-red-400";
-  const size = `h-[${height}px]`;
+  const [height, setHeight] = useState<number>(200);
+
+  useEffect(() => {
+    console.log("drag");
+  }, []);
 
   return (
     <button
-      className={`absolute w-[100px] ${size} z-50 ${backGroundColor}`}
+      className={`absolute z-10 ${backGroundColor}`}
       ref={setNodeRef}
       style={style}
       {...listeners}
       {...attributes}>
-      {children}
+      <Resizable
+        style={{ border: "1px solid black" }}
+        size={{ width: w, height: h }}
+        enable={{
+          top: true,
+          bottom: true,
+        }}
+        onResizeStop={(ev, direction, elementRef, delta) => {
+          // console.log(ev);
+          // console.log(direction);
+          // console.log(elementRef);
+          // console.log(delta);
+          setHeight((prev) => prev + delta.height);
+        }}>
+        {children}
+      </Resizable>
     </button>
   );
 }

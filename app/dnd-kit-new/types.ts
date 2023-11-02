@@ -1,10 +1,15 @@
 import { ReactNode } from "react";
 
-export interface TimeDraggable {
+export interface MapDraggable {
   id: string;
   x: number;
   y: number;
-  height: number;
+  w: number;
+  h: number;
   bg?: string;
+  children?: ReactNode;
+}
+
+export interface MapDraggableChildren extends MapDraggable {
   children?: ReactNode;
 }

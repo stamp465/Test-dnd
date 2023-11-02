@@ -1,14 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DndContext, DragEndEvent, Modifier } from "@dnd-kit/core";
 
 import { TimeDraggable } from "./TimeDraggable";
 import { TimeDroppable } from "./TimeDroppable";
+import { MapDraggable } from "./types";
+import { mapOfData } from "./mapping";
 
 export default function App() {
   const [{ x, y }, setCoordinates] = useState({ x: 0, y: 50 });
   const [{ xx, yy }, setCoordinates2] = useState({ xx: 0, yy: 500 });
+  const [listOfMap, setListOfMap] = useState<Array<MapDraggable>>([]);
+
+  useEffect(() => {
+    console.log(mapOfData);
+    setListOfMap(mapOfData);
+  }, []);
 
   return (
     <div className=" w-screen h-screen bg-green-200 flex justify-center items-center gap-4">
@@ -17,11 +25,22 @@ export default function App() {
         // modifiers={[restrictToVerticalAxis]}
       >
         <TimeDroppable>
-          <TimeDraggable
+          {listOfMap.map((mapData) => (
+            <TimeDraggable
+              x={mapData.x}
+              y={mapData.y}
+              id={mapData.id}
+              w={100}
+              h={mapData.h}>
+              {`mapData ${mapData.id}`}
+            </TimeDraggable>
+          ))}
+          {/* <TimeDraggable
             x={x}
             y={y}
             id={"1"}
-            height={100}>
+            w={100}
+            h={100}>
             Test1
           </TimeDraggable>
 
@@ -29,9 +48,10 @@ export default function App() {
             x={xx}
             y={yy}
             id={"2"}
-            height={100}>
+            w={100}
+            h={100}>
             Test2
-          </TimeDraggable>
+          </TimeDraggable> */}
         </TimeDroppable>
       </DndContext>
     </div>
