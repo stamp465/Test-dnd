@@ -6,7 +6,7 @@ import { DndContext, Modifier } from "@dnd-kit/core";
 import { Droppable } from "./Droppable";
 import { Draggable } from "./Draggable";
 
-export default function App() {
+export default function Page() {
   const [{ x, y }, setCoordinates] = useState({ x: 0, y: 50 });
   const [{ xx, yy }, setCoordinates2] = useState({ xx: 0, yy: 500 });
   const restrictToVerticalAxis: Modifier = ({ transform }) => {

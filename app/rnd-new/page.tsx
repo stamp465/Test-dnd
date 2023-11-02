@@ -10,7 +10,7 @@ import {
   RndResizeStartCallback,
 } from "react-rnd";
 
-export default function App() {
+export default function Page() {
   const [listOfMap, setListOfMap] = useState<Array<MapDraggable>>([]);
   const [boxBg, setBoxBg] = useState("bg-gray-200");
 
@@ -184,6 +184,7 @@ export default function App() {
         {listOfMap.map((data) => {
           return (
             <RndDraggable
+              key={`Map ${data.id}`}
               y={data.y}
               h={data.h}
               day={data.day}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Rnd } from "react-rnd";
 
-export default function page() {
+export default function Page() {
   const [cn1, setCn1] = useState("");
   const style = {
     display: "flex",
