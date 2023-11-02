@@ -1,15 +1,25 @@
 import { ReactNode } from "react";
+import {
+  RndDragCallback,
+  RndResizeCallback,
+  RndResizeStartCallback,
+} from "react-rnd";
 
 export interface MapDraggable {
   id: string;
-  x: number;
+  day: number;
   y: number;
-  w: number;
   h: number;
   bg?: string;
   children?: ReactNode;
 }
 
 export interface MapDraggableChildren extends MapDraggable {
+  w: number;
+  x: number;
   children?: ReactNode;
+  onDragStart: RndDragCallback;
+  onDragStop: RndDragCallback;
+  onResizeStart: RndResizeStartCallback;
+  onResizeStop: RndResizeCallback;
 }
